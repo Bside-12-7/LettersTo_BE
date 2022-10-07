@@ -10,6 +10,7 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 import javax.persistence.Table
@@ -27,11 +28,19 @@ class Member(
     val address: Address,
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(name = "member_topic")
+    @JoinTable(
+        name = "member_topic",
+        joinColumns = [JoinColumn(name = "member_id")],
+        inverseJoinColumns = [JoinColumn(name = "topic_id")]
+    )
     val topics: List<Topic> = mutableListOf(),
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @JoinTable(name = "member_personality")
+    @JoinTable(
+        name = "member_personality",
+        joinColumns = [JoinColumn(name = "member_id")],
+        inverseJoinColumns = [JoinColumn(name = "personality_id")]
+    )
     val personalities: List<Personality> = mutableListOf(),
 
     @Column(name = "created_date")

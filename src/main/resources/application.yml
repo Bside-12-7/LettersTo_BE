@@ -8,3 +8,15 @@ spring:
     enabled: false
   jpa:
     open-in-view: false
+
+kakao:
+  auth:
+    client-id:
+    client-secret:
+    redirect-uri:
+
+token:
+  register-token-expires-in: 300
+  access-token-expires-in: 1800
+  refresh-token-expires-in: 5184000
+  secret:

@@ -1,0 +1,17 @@
+<script>
+    const params = new URLSearchParams(location.search)
+
+    fetch("/api/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            code: params.get("code"),
+            providerType: params.get("providerType")
+        })
+    }).then(response => response.json())
+        .then(json => {
+            console.log(json)
+        })
+</script>

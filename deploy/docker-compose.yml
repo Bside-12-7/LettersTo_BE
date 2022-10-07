@@ -5,7 +5,7 @@ services:
     image: spring-app:custom
     ports:
       - "8080:8080"
-    command: java -jar app.jar --spring.profiles.active='${SPRING_PROFILES_ACTIVE}' --spring.datasource.url='${SPRING_DATASOURCE_URL}' --spring.datasource.username='${SPRING_DATASOURCE_USERNAME}' --spring.datasource.password='${SPRING_DATASOURCE_PASSWORD}'
+    command: java -jar app.jar --spring.profiles.active='${SPRING_PROFILES_ACTIVE}' --spring.datasource.url='${SPRING_DATASOURCE_URL}' --spring.datasource.username='${SPRING_DATASOURCE_USERNAME}' --spring.datasource.password='${SPRING_DATASOURCE_PASSWORD}' --kakao.auth.client-id='${KAKAO_AUTH_CLIENT_ID}' --kakao.auth.client-secret='${KAKAO_AUTH_CLIENT_SECRET}' --kakao.auth.redirect-uri='${KAKAO_AUTH_REDIRECT_URI}' --token.secret='${TOKEN_SECRET}'
   nginx:
     container_name: nginx
     image: nginx:custom

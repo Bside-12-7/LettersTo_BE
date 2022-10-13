@@ -41,15 +41,15 @@ class MemberRegisterService(
 
         val member = createMember(
             nickname = Nickname(request.nickname),
-            email = registerToken.email,
+            email = registerToken.body.email,
             address = request.address,
             topics = topics,
             personalities = personalities
         )
 
         val authentication = createAuthentication(
-            providerType = registerToken.providerType,
-            principal = registerToken.principal,
+            providerType = registerToken.body.providerType,
+            principal = registerToken.body.principal,
             member = member
         )
 

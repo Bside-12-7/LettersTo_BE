@@ -19,12 +19,10 @@ create table refresh_token
 
 create table register_token
 (
-    id            varchar(255) primary key,
-    provider_type varchar(255) not null,
-    principal     varchar(255) not null,
-    email         varchar(255) not null,
-    expires_in    int          not null,
-    created_date  datetime(6) not null
+    id           varchar(255) primary key,
+    body         json not null,
+    expires_in   int  not null,
+    created_date datetime(6) not null
 );
 
 create table member

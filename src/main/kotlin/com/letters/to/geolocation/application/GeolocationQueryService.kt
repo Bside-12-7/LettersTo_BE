@@ -4,7 +4,9 @@ import com.letters.to.geolocation.domain.GeolocationRepository
 import com.letters.to.geolocation.domain.REGION_LEVEL
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional(readOnly = true)
 @Service
 class GeolocationQueryService(private val geolocationRepository: GeolocationRepository) {
     fun findRegions(): List<GeolocationResponse> {

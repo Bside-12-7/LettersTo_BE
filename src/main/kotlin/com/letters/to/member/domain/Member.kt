@@ -1,11 +1,11 @@
 package com.letters.to.member.domain
 
+import com.letters.to.geolocation.domain.Geolocation
 import com.letters.to.personality.domain.Personality
 import com.letters.to.topic.domain.Topic
 import java.time.LocalDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
-import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -13,6 +13,7 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Table(name = "member")
@@ -24,8 +25,9 @@ class Member(
     @Column(name = "email")
     val email: String,
 
-    @Embedded
-    val address: Address,
+    @ManyToOne
+    @JoinColumn(name = "geolocation_id")
+    val geolocation: Geolocation,
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinTable(
@@ -52,6 +54,7 @@ class Member(
 ) {
     init {
         require(topics.size in 1..10) { "관심사는 최소 1개이상 최대 10개이하 선택할 수 있습니다." }
-        require(personalities.size in 1..10) { "성향은 최소 1개이상 최대 9개이하 선택할 수 있습니다." }
+        require(personalities.size in 1..12) { "성향은 최소 1개이상 최대 12개이하 선택할 수 있습니다." }
+        require(geolocation.isCity) { "주소는 시군구까지 선택해야 합니다." }
     }
 }

@@ -1,6 +1,6 @@
 package com.letters.to.web
 
-import com.letters.to.auth.application.AccessTokenReadService
+import com.letters.to.auth.application.AccessTokenVerifyService
 import com.letters.to.auth.domain.AccessTokenPayload
 import org.springframework.core.MethodParameter
 import org.springframework.http.HttpHeaders.AUTHORIZATION
@@ -11,7 +11,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
 @Component
-class AccessTokenResolver(private val accessTokenReadService: AccessTokenReadService) : HandlerMethodArgumentResolver {
+class AccessTokenResolver(private val accessTokenVerifyService: AccessTokenVerifyService) :
+    HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.hasParameterAnnotation(AccessToken::class.java)
@@ -31,7 +32,7 @@ class AccessTokenResolver(private val accessTokenReadService: AccessTokenReadSer
         }
 
         try {
-            return accessTokenReadService.read(accessToken)
+            return accessTokenVerifyService.verify(accessToken)
         } catch (e: Exception) {
             throw AuthorizationException("토큰이 유효하지 않습니다.")
         }

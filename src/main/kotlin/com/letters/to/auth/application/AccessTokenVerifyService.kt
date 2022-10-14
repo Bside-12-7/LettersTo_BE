@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service
 import org.springframework.util.Base64Utils
 
 @Service
-class AccessTokenReadService(
+class AccessTokenVerifyService(
     private val objectMapper: ObjectMapper,
     tokenProperties: TokenProperties
 ) {
     private val verifier: JWTVerifier = JWT.require(Algorithm.HMAC256(tokenProperties.secret))
         .build()
 
-    fun read(accessToken: String): AccessTokenPayload {
+    fun verify(accessToken: String): AccessTokenPayload {
         val jwt = verifier.verify(accessToken)
 
         return objectMapper.readValue(Base64Utils.decodeFromString(jwt.payload), AccessTokenPayload::class.java)

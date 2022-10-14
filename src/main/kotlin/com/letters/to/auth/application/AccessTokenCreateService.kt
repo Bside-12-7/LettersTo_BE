@@ -12,7 +12,7 @@ import java.util.Date
 @Service
 class AccessTokenCreateService(
     private val refreshTokenCreateService: RefreshTokenCreateService,
-    private val accessTokenReadService: AccessTokenReadService,
+    private val accessTokenVerifyService: AccessTokenVerifyService,
     private val tokenProperties: TokenProperties
 ) {
     fun create(authentication: Authentication): RefreshToken {
@@ -20,7 +20,7 @@ class AccessTokenCreateService(
     }
 
     fun create(accessToken: String): RefreshToken {
-        return create(accessTokenReadService.read(accessToken))
+        return create(accessTokenVerifyService.verify(accessToken))
     }
 
     private fun create(accessTokenPayload: AccessTokenPayload): RefreshToken {

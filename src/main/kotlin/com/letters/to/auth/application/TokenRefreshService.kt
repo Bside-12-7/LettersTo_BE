@@ -23,7 +23,7 @@ class TokenRefreshService(
 
     private fun verify(request: TokenRefreshRequest) {
         val refreshToken = refreshTokenRepository.findByRefreshToken(request.refreshToken)
-            ?: throw IllegalStateException("리프레시 토큰이 존재하지 않습니다.")
+            ?: throw NoSuchElementException("리프레시 토큰이 존재하지 않습니다.")
 
         refreshToken.verify(request.accessToken)
     }

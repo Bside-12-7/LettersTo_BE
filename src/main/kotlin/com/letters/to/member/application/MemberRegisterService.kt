@@ -33,14 +33,14 @@ class MemberRegisterService(
     @Transactional
     fun register(request: MemberRegisterRequest): TokenResponse {
         val registerToken = registerTokenRepository.findByRegisterToken(request.registerToken)
-            ?: throw NoSuchElementException("회원가입 토큰이 존재하지 않습니다.")
+            ?: throw NoSuchElementException("유효한 회원가입 토큰이 아닙니다.")
 
         registerToken.verify()
 
         registerTokenRepository.delete(registerToken)
 
         val geolocation = geolocationRepository.findByIdOrNull(request.geolocationId)
-            ?: throw NoSuchElementException("주소가 존재하지 않습니다.")
+            ?: throw NoSuchElementException("유효한 주소가 아닙니다.")
         val topics = topicRepository.findAllById(request.topicIds)
         val personalities = personalityRepository.findAllById(request.personalityIds)
 
@@ -84,8 +84,8 @@ class MemberRegisterService(
             nickname = nickname,
             email = email,
             geolocation = geolocation,
-            topics = topics,
-            personalities = personalities
+            topics = topics.toMutableList(),
+            personalities = personalities.toMutableList()
         )
 
         return memberRepository.save(member)

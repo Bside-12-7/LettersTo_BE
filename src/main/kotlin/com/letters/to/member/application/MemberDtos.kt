@@ -17,3 +17,10 @@ data class MemberRegisterRequest(
     @field:Size(min = 1, max = 12)
     val personalityIds: Set<Long>
 )
+
+data class MemberUpdateRequest(
+    val nickname: String?,
+    val geolocationId: Long?,
+    val topicIds: Set<Long>?,
+    val personalityIds: Set<Long>?
+)

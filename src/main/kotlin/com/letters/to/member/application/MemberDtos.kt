@@ -1,5 +1,6 @@
 package com.letters.to.member.application
 
+import com.letters.to.member.domain.Member
 import org.hibernate.validator.constraints.Length
 import javax.validation.constraints.Size
 
@@ -24,3 +25,17 @@ data class MemberUpdateRequest(
     val topicIds: Set<Long>?,
     val personalityIds: Set<Long>?
 )
+
+data class MemberResponse(
+    val nickname: String,
+    val geolocationId: Long,
+    val topicIds: List<Long>,
+    val personalityIds: List<Long>
+) {
+    constructor(member: Member) : this(
+        nickname = member.nickname.value,
+        geolocationId = member.geolocation.id,
+        topicIds = member.topics.map { it.id },
+        personalityIds = member.personalities.map { it.id }
+    )
+}

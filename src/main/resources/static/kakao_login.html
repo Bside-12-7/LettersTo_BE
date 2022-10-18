@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>카카오 로그인 테스트</title>
-    <script crossorigin="anonymous"
-            integrity="sha384-PFHeU/4gvSH8kpvhrigAPfZGBDPs372JceJq3jAXce11bVA6rMvGWzvP4fMQuBGL"
-            src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.0/kakao.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -25,15 +22,9 @@
 <img onclick="kakaoLogin()" src="kakao_login_large_wide.png"
      width="400"/>
 <script>
-    Kakao.init('11a436f010d5e702b1817ce590d3f79b');
-    Kakao.isInitialized();
-
     function kakaoLogin() {
-        Kakao.Auth.authorize({
-            redirectUri: `${location.origin}/redirect.html?providerType=KAKAO`
-        });
+        location.replace(`/oauth/kakao`)
     }
-
 </script>
 </body>
 </html>

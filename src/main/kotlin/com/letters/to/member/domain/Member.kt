@@ -3,6 +3,7 @@ package com.letters.to.member.domain
 import com.letters.to.geolocation.domain.Geolocation
 import com.letters.to.personality.domain.Personality
 import com.letters.to.topic.domain.Topic
+import java.time.LocalDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -39,6 +40,9 @@ class Member(
         inverseJoinColumns = [JoinColumn(name = "personality_id")]
     )
     val personalities: MutableList<Personality> = mutableListOf(),
+
+    @Column(name = "created_date")
+    val createdDate: LocalDateTime = LocalDateTime.now(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

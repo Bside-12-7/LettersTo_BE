@@ -30,8 +30,7 @@
 
     function kakaoLogin() {
         Kakao.Auth.authorize({
-            redirectUri: 'http://localhost:8080/redirect.html?providerType=KAKAO',
-            nonce: 'HIHIHIHI',
+            redirectUri: `${location.origin}/redirect.html?providerType=KAKAO`
         });
     }
 

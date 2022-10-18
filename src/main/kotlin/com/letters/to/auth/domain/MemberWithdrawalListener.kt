@@ -8,7 +8,7 @@ import org.springframework.transaction.event.TransactionalEventListener
 @Component
 class MemberWithdrawalListener(private val authenticationRepository: AuthenticationRepository) {
 
-    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun listen(event: MemberWithdrawalEvent) {
         authenticationRepository.deleteByMemberId(event.id)
     }

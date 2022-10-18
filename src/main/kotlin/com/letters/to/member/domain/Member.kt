@@ -3,10 +3,11 @@ package com.letters.to.member.domain
 import com.letters.to.geolocation.domain.Geolocation
 import com.letters.to.personality.domain.Personality
 import com.letters.to.topic.domain.Topic
-import java.time.LocalDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -19,12 +20,8 @@ import javax.persistence.Table
 @Table(name = "member")
 @Entity
 class Member(
-    @Column(name = "nickname", unique = true)
-    var nickname: Nickname,
-
-    @Column(name = "email")
-    val email: String,
-
+    nickname: Nickname,
+    email: String,
     geolocation: Geolocation,
 
     @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
@@ -43,22 +40,36 @@ class Member(
     )
     val personalities: MutableList<Personality> = mutableListOf(),
 
-    @Column(name = "created_date")
-    val createdDate: LocalDateTime = LocalDateTime.now(),
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
 ) {
+    @Column(name = "nickname", unique = true)
+    var nickname: Nickname = nickname
+        private set
+
+    @Column(name = "email")
+    var email: String = email
+        private set
+
     @ManyToOne
     @JoinColumn(name = "geolocation_id")
     var geolocation: Geolocation = geolocation
+        private set
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    var status: MemberStatus = MemberStatus.ACTIVE
         private set
 
     init {
         validateTopics(topics)
         validatePersonalities(personalities)
         validateGeolocation(geolocation)
+    }
+
+    fun updateNickname(nickname: String) {
+        this.nickname = Nickname(nickname)
     }
 
     fun updateTopics(topics: List<Topic>) {
@@ -91,5 +102,12 @@ class Member(
 
     private fun validateGeolocation(geolocation: Geolocation) {
         require(geolocation.isCity) { "주소는 시군구까지 선택해야 합니다." }
+    }
+
+    fun withdrawal() {
+        this.status = MemberStatus.WITHDRAWAL
+        this.email = ""
+        this.topics.clear()
+        this.personalities.clear()
     }
 }

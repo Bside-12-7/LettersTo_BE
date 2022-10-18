@@ -42,6 +42,7 @@ create table member
     nickname       varchar(255) not null unique,
     email          varchar(255) not null,
     geolocation_id bigint       not null,
+    status         varchar(255) not null,
     created_date   datetime(6) not null
 );
 

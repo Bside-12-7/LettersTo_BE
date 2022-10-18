@@ -28,12 +28,14 @@ data class MemberUpdateRequest(
 
 data class MemberResponse(
     val nickname: String,
+    val parentGeolocationId: Long?,
     val geolocationId: Long,
     val topicIds: List<Long>,
     val personalityIds: List<Long>
 ) {
     constructor(member: Member) : this(
         nickname = member.nickname.value,
+        parentGeolocationId = member.geolocation.parent?.id,
         geolocationId = member.geolocation.id,
         topicIds = member.topics.map { it.id },
         personalityIds = member.personalities.map { it.id }

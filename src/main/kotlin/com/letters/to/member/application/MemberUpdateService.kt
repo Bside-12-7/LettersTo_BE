@@ -4,7 +4,7 @@ import com.letters.to.auth.domain.AccessTokenPayload
 import com.letters.to.geolocation.domain.GeolocationRepository
 import com.letters.to.member.domain.Member
 import com.letters.to.member.domain.MemberRepository
-import com.letters.to.member.domain.Nickname
+import com.letters.to.member.domain.findByIdAndActive
 import com.letters.to.personality.domain.PersonalityRepository
 import com.letters.to.topic.domain.TopicRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -41,13 +41,13 @@ class MemberUpdateService(
     }
 
     private fun getMember(memberId: Long): Member {
-        return memberRepository.findByIdOrNull(memberId) ?: throw NoSuchElementException("유효한 회원이 아닙니다.")
+        return memberRepository.findByIdAndActive(memberId) ?: throw NoSuchElementException("유효한 회원이 아닙니다.")
     }
 
     private fun updateNickname(member: Member, nickname: String) {
         check(!memberRepository.existsByNickname(nickname)) { "이미 사용 중인 닉네임입니다." }
 
-        member.nickname = Nickname(nickname)
+        member.updateNickname(nickname)
     }
 
     private fun updateTopics(member: Member, topicIds: List<Long>) {

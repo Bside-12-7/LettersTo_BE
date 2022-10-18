@@ -24,7 +24,7 @@ class AccessTokenResolver(private val accessTokenVerifyService: AccessTokenVerif
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): AccessTokenPayload {
-        val authorization = webRequest.getHeader(AUTHORIZATION) ?: throw IllegalArgumentException("올바르지 않은 요청입니다.")
+        val authorization = webRequest.getHeader(AUTHORIZATION) ?: throw AuthorizationException("올바르지 않은 요청입니다.")
         val (tokenType, accessToken) = authorization.split(" ")
 
         if (tokenType != "Bearer") {

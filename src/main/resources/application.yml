@@ -11,7 +11,8 @@ spring:
 
 kakao:
   auth:
-    client-id:
+    rest-api-key:
+    native-app-key:
     client-secret:
     redirect-uri:
 

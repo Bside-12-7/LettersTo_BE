@@ -18,7 +18,7 @@ class KakaoAuthClient(
         val params = LinkedMultiValueMap<String, String>().apply {
             add("grant_type", "authorization_code")
             add("code", code)
-            add("client_id", kakaoAuthProperties.clientId)
+            add("client_id", kakaoAuthProperties.restApiKey)
             add("client_secret", kakaoAuthProperties.clientSecret)
             add("redirect_uri", kakaoAuthProperties.redirectUri)
         }

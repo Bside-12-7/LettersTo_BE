@@ -58,7 +58,7 @@ class TokenProvideByOAuthService(
     private fun verifyPayload(idToken: String, oauthProperties: OAuthProperties) {
         val jwt = JWT.decode(idToken)
 
-        check(jwt.audience.any { oauthProperties.clientIds.contains(it) } && jwt.expiresAt.before(Date(System.currentTimeMillis()))) { "토큰이 유효하지 않습니다." }
+        check(jwt.audience.any { oauthProperties.clientIds.contains(it) } && jwt.expiresAt.after(Date(System.currentTimeMillis()))) { "토큰이 유효하지 않습니다." }
     }
 
     private fun verifySignature(kid: String, idToken: String, oauthProperties: OAuthProperties) {

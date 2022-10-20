@@ -12,18 +12,13 @@ import java.util.Date
 @Service
 class AccessTokenCreateService(
     private val refreshTokenCreateService: RefreshTokenCreateService,
-    private val accessTokenVerifyService: AccessTokenVerifyService,
     private val tokenProperties: TokenProperties
 ) {
     fun create(authentication: Authentication): RefreshToken {
         return create(authentication.accessTokenPayload)
     }
 
-    fun create(accessToken: String): RefreshToken {
-        return create(accessTokenVerifyService.verify(accessToken, true))
-    }
-
-    private fun create(accessTokenPayload: AccessTokenPayload): RefreshToken {
+    fun create(accessTokenPayload: AccessTokenPayload): RefreshToken {
         val accessToken = JWT.create()
             .withClaim("providerType", accessTokenPayload.providerType.name)
             .withClaim("principal", accessTokenPayload.principal)

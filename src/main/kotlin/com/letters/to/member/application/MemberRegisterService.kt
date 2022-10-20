@@ -33,7 +33,7 @@ class MemberRegisterService(
     @Transactional
     fun register(request: MemberRegisterRequest): TokenResponse {
         val registerToken = registerTokenRepository.findByRegisterToken(request.registerToken)
-            ?: throw NoSuchElementException("유효한 회원가입 토큰이 아닙니다.")
+            ?: throw NoSuchElementException("회원가입 토큰이 유효하지 않습니다.")
 
         registerToken.verify()
 

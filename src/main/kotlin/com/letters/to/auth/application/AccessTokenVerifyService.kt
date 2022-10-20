@@ -14,11 +14,16 @@ class AccessTokenVerifyService(
     private val objectMapper: ObjectMapper,
     tokenProperties: TokenProperties
 ) {
-    private val verifier: JWTVerifier = JWT.require(Algorithm.HMAC256(tokenProperties.secret))
-        .build()
+    private val verifierBuilder = JWT.require(Algorithm.HMAC256(tokenProperties.secret))
 
-    fun verify(accessToken: String): AccessTokenPayload {
-        val jwt = verifier.verify(accessToken)
+    private val verifier: JWTVerifier = verifierBuilder.build()
+
+    private val refreshVerifier: JWTVerifier =
+        verifierBuilder.acceptExpiresAt(tokenProperties.refreshTokenExpiresIn.toLong())
+            .build()
+
+    fun verify(accessToken: String, refresh: Boolean = false): AccessTokenPayload {
+        val jwt = if (refresh) refreshVerifier.verify(accessToken) else verifier.verify(accessToken)
 
         return objectMapper.readValue(Base64Utils.decodeFromString(jwt.payload), AccessTokenPayload::class.java)
     }

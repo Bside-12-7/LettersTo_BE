@@ -20,7 +20,7 @@ class AccessTokenCreateService(
     }
 
     fun create(accessToken: String): RefreshToken {
-        return create(accessTokenVerifyService.verify(accessToken))
+        return create(accessTokenVerifyService.verify(accessToken, true))
     }
 
     private fun create(accessTokenPayload: AccessTokenPayload): RefreshToken {

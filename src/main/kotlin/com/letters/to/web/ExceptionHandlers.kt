@@ -1,5 +1,6 @@
 package com.letters.to.web
 
+import com.letters.to.file.application.FileNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -30,5 +31,10 @@ class ExceptionHandlers {
     @ExceptionHandler(AuthorizationException::class)
     fun handle(exception: AuthorizationException): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ErrorResponse(exception.message!!))
+    }
+
+    @ExceptionHandler(FileNotFoundException::class)
+    fun handle(exception: FileNotFoundException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.notFound().build()
     }
 }

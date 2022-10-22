@@ -21,3 +21,10 @@ token:
   access-token-expires-in: 1800
   refresh-token-expires-in: 5184000
   secret:
+
+aws:
+  s3:
+    bucket: bucket
+    access-key-id: accesskeyid
+    secret-access-key: secretaccesskey
+    presigned-url-expires-in: 60000

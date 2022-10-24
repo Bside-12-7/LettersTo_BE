@@ -1,7 +1,7 @@
 package com.letters.to.member.application
 
 import com.letters.to.member.domain.MemberRepository
-import org.springframework.data.repository.findByIdOrNull
+import com.letters.to.member.domain.findByIdAndActive
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 class MemberQueryService(private val memberRepository: MemberRepository) {
 
     fun findById(id: Long): MemberResponse {
-        val member = memberRepository.findByIdOrNull(id)
+        val member = memberRepository.findByIdAndActive(id)
             ?: throw NoSuchElementException("유효한 회원이 아닙니다.")
 
         return MemberResponse(member = member)

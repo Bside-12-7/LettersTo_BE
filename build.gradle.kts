@@ -34,6 +34,7 @@ dependencies {
     implementation("com.querydsl:querydsl-apt:5.0.0")
     implementation("com.auth0:java-jwt:4.0.0")
     implementation("com.auth0:jwks-rsa:0.21.2")
+    implementation("software.amazon.awssdk:s3:2.18.0")
     kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

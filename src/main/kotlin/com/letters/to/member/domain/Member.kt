@@ -120,7 +120,7 @@ class Member(
     }
 
     fun useStamp(count: Int = 1) {
-        require(count > 0) { "우표는 1개 이상 사용해야 합니다." }
+        require(count >= 0) { "우표는 0개 이상 사용해야 합니다." }
         require(stampQuantity - count >= 0) { "우표가 부족합니다." }
 
         stampQuantity -= count

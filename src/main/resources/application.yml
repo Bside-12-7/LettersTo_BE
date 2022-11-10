@@ -27,4 +27,4 @@ aws:
     bucket: bucket
     access-key-id: accesskeyid
     secret-access-key: secretaccesskey
-    presigned-url-expires-in: 60000
+    presigned-url-expires-in: 86400

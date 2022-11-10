@@ -66,6 +66,10 @@ class Member(
     var status: MemberStatus = MemberStatus.ACTIVE
         private set
 
+    @Column(name = "stamp_quantity")
+    var stampQuantity: Int = 0
+        private set
+
     init {
         validateTopics(topics)
         validatePersonalities(personalities)
@@ -113,5 +117,18 @@ class Member(
         this.email = ""
         this.topics.clear()
         this.personalities.clear()
+    }
+
+    fun useStamp(count: Int = 1) {
+        require(count > 0) { "우표는 1개 이상 사용해야 합니다." }
+        require(stampQuantity - count >= 0) { "우표가 부족합니다." }
+
+        stampQuantity -= count
+    }
+
+    fun giveStamp(count: Int = 1) {
+        require(count > 0) { "우표는 1개 이상 지급해야 합니다." }
+
+        stampQuantity += count
     }
 }

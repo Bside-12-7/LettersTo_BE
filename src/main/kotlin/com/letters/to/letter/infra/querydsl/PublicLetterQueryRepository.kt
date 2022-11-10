@@ -102,6 +102,7 @@ class PublicLetterQueryRepository(private val jpaQueryFactory: JPAQueryFactory) 
                 paperColor = it.paperColor,
                 paperType = it.paperType,
                 stampId = it.stampId,
+                replied = false,
                 files = files,
                 createdDate = it.createdDate
             )

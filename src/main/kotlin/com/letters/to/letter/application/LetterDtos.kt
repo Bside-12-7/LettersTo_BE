@@ -40,6 +40,7 @@ data class LetterDetailResponse(
     val paperColor: PaperColor,
     val paperType: PaperType,
     val stampId: Long,
+    val replied: Boolean,
     val files: List<String>,
     val createdDate: LocalDateTime
 )

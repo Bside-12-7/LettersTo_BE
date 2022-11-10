@@ -24,6 +24,7 @@ class DeliveryLetterOpenService(
             paperColor = deliveryLetter.paperColor,
             paperType = deliveryLetter.paperType,
             stampId = deliveryLetter.stamp.id,
+            replied = deliveryLetter.replied,
             files = deliveryLetter.pictures.map { it.fileId },
             createdDate = deliveryLetter.createdDate
         )

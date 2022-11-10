@@ -70,7 +70,8 @@ create table letter_box
 (
     id             bigint primary key auto_increment,
     from_member_id bigint not null,
-    to_member_id   bigint not null
+    to_member_id   bigint not null,
+    created_date   datetime(6) not null
 );
 
 create unique index uix_letter_box_from_to on letter_box (from_member_id, to_member_id);

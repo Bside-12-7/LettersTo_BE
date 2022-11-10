@@ -10,9 +10,16 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 const val REGION_LEVEL = 2
 const val CITY_LEVEL = 3
+
+private const val R = 6371e3
 
 @Table(name = "geolocation")
 @Entity
@@ -26,6 +33,9 @@ class Geolocation(
 
     @Column(name = "name")
     val name: String,
+
+    @Column(name = "fullname")
+    val fullname: String,
 
     @Column(name = "latitude")
     val latitude: Double,
@@ -49,4 +59,18 @@ class Geolocation(
 
     val isCity: Boolean
         get() = level == CITY_LEVEL
+
+    fun haversine(destination: Geolocation): Double {
+        val originLatitude = Math.toRadians(latitude)
+        val destinationLatitude = Math.toRadians(destination.latitude)
+        val diffLatitude = Math.toRadians(destination.latitude - latitude)
+        val diffLongitude = Math.toRadians(destination.longitude - longitude)
+
+        val a = sin(diffLatitude / 2).pow(2) +
+            cos(originLatitude) * cos(destinationLatitude) *
+            sin(diffLongitude / 2).pow(2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        return R * c
+    }
 }

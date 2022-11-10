@@ -13,7 +13,9 @@ class DeliveryLetterOpenService(
         val deliveryLetter = deliveryLetterQueryRepository.findOneBy(accessTokenPayload.memberId, id)
             ?: throw NoSuchElementException("유효한 편지가 아닙니다")
 
-        deliveryLetter.open()
+        if (accessTokenPayload.memberId == deliveryLetter.toMember.id) {
+            deliveryLetter.open()
+        }
 
         return LetterDetailResponse(
             id = deliveryLetter.id,

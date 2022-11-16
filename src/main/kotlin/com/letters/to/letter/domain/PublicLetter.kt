@@ -19,6 +19,7 @@ class PublicLetter(
     pictures: MutableList<Picture> = mutableListOf(),
     paperType: PaperType,
     paperColor: PaperColor,
+    alignType: AlignType,
     stamp: Stamp,
     fromMember: Member,
 
@@ -43,6 +44,7 @@ class PublicLetter(
     pictures = pictures,
     paperType = paperType,
     paperColor = paperColor,
+    alignType = alignType,
     stamp = stamp,
     fromMember = fromMember
 )

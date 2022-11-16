@@ -1,5 +1,6 @@
 package com.letters.to.letter.application
 
+import com.letters.to.letter.domain.AlignType
 import com.letters.to.letter.domain.DeliveryType
 import com.letters.to.letter.domain.PaperColor
 import com.letters.to.letter.domain.PaperType
@@ -11,6 +12,7 @@ data class PublicLetterWriteRequest(
     val content: String,
     val paperType: PaperType,
     val paperColor: PaperColor,
+    val alignType: AlignType,
     val stampId: Long,
     val topics: List<Long>,
     val personalities: List<Long>,
@@ -39,6 +41,7 @@ data class LetterDetailResponse(
     val fromNickname: String,
     val paperColor: PaperColor,
     val paperType: PaperType,
+    val alignType: AlignType,
     val stampId: Long,
     val replied: Boolean,
     val files: List<String>,
@@ -56,6 +59,7 @@ data class DeliveryLetterWriteRequest(
     val content: String,
     val paperType: PaperType,
     val paperColor: PaperColor,
+    val alignType: AlignType,
     val stampId: Long,
 
     @field:Size(max = 3)

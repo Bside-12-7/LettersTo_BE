@@ -4,6 +4,7 @@ import com.letters.to.geolocation.domain.QGeolocation.geolocation
 import com.letters.to.letter.application.LetterDetailResponse
 import com.letters.to.letter.application.PublicLetterExtendsRepository
 import com.letters.to.letter.application.PublicLetterResponse
+import com.letters.to.letter.domain.AlignType
 import com.letters.to.letter.domain.PaperColor
 import com.letters.to.letter.domain.PaperType
 import com.letters.to.letter.domain.QPicture.picture
@@ -81,6 +82,7 @@ class PublicLetterQueryRepository(private val jpaQueryFactory: JPAQueryFactory) 
                     publicLetter.fromMember.nickname,
                     publicLetter.paperColor,
                     publicLetter.paperType,
+                    publicLetter.alignType,
                     publicLetter.stamp.id,
                     publicLetter.createdDate
                 )
@@ -101,6 +103,7 @@ class PublicLetterQueryRepository(private val jpaQueryFactory: JPAQueryFactory) 
                 fromNickname = it.fromNickname,
                 paperColor = it.paperColor,
                 paperType = it.paperType,
+                alignType = it.alignType,
                 stampId = it.stampId,
                 replied = false,
                 files = files,
@@ -128,6 +131,7 @@ data class PublicLetterDetailProjection @QueryProjection constructor(
     val fromNickname: String,
     val paperColor: PaperColor,
     val paperType: PaperType,
+    val alignType: AlignType,
     val stampId: Long,
     val createdDate: LocalDateTime
 )

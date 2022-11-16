@@ -8,7 +8,7 @@ private const val UNIT = 2000
 
 enum class DeliveryType(val stampCount: Int, private val delegate: BiFunction<Member, Member, LocalDateTime>) {
     NONE(0, { _, _ -> LocalDateTime.now() }),
-    NORMAL(1, { from, to ->
+    STANDARD(1, { from, to ->
         val meter = from.geolocation.haversine(to.geolocation)
         LocalDateTime.now().plusMinutes((meter / UNIT).toLong())
     }),

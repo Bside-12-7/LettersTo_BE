@@ -45,6 +45,7 @@ class PublicLetterWriteService(
             content = Content(request.content),
             paperType = request.paperType,
             paperColor = request.paperColor,
+            alignType = request.alignType,
             stamp = stamp,
             topics = topics,
             personalities = personalities,
@@ -81,6 +82,7 @@ class PublicLetterWriteService(
             content = publicLetter.content,
             paperType = publicLetter.paperType,
             paperColor = publicLetter.paperColor,
+            alignType = publicLetter.alignType,
             stamp = publicLetter.stamp,
             deliveryType = DeliveryType.NONE,
             fromMember = publicLetter.fromMember
@@ -96,6 +98,7 @@ class PublicLetterWriteService(
             content = Content(request.content),
             paperType = request.paperType,
             paperColor = request.paperColor,
+            alignType = request.alignType,
             stamp = stamp,
             deliveryType = request.deliveryType,
             fromMember = member

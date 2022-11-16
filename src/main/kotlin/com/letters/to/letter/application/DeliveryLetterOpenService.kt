@@ -25,6 +25,7 @@ class DeliveryLetterOpenService(
             fromNickname = deliveryLetter.fromMember.nickname.value,
             paperColor = deliveryLetter.paperColor,
             paperType = deliveryLetter.paperType,
+            alignType = deliveryLetter.alignType,
             stampId = deliveryLetter.stamp.id,
             replied = deliveryLetter.replied,
             files = deliveryLetter.pictures.map { it.fileId },

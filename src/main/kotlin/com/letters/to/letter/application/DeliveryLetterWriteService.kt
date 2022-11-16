@@ -34,6 +34,7 @@ class DeliveryLetterWriteService(
             content = Content(request.content),
             paperType = request.paperType,
             paperColor = request.paperColor,
+            alignType = request.alignType,
             stamp = stamp,
             deliveryType = request.deliveryType,
             fromMember = member

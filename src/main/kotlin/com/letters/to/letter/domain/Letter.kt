@@ -39,6 +39,10 @@ abstract class Letter(
     @Enumerated(EnumType.STRING)
     open val paperColor: PaperColor,
 
+    @Column(name = "align_type")
+    @Enumerated(EnumType.STRING)
+    open val alignType: AlignType,
+
     @ManyToOne
     @JoinColumn(name = "stamp_id")
     open val stamp: Stamp,

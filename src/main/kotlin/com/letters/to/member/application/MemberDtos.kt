@@ -31,13 +31,15 @@ data class MemberResponse(
     val parentGeolocationId: Long?,
     val geolocationId: Long,
     val topicIds: List<Long>,
-    val personalityIds: List<Long>
+    val personalityIds: List<Long>,
+    val stampQuantity: Int
 ) {
     constructor(member: Member) : this(
         nickname = member.nickname.value,
         parentGeolocationId = member.geolocation.parent?.id,
         geolocationId = member.geolocation.id,
         topicIds = member.topics.map { it.id },
-        personalityIds = member.personalities.map { it.id }
+        personalityIds = member.personalities.map { it.id },
+        stampQuantity = member.stampQuantity
     )
 }

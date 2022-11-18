@@ -1,5 +1,6 @@
-package com.letters.to.auth.domain
+package com.letters.to.auth.ui
 
+import com.letters.to.auth.domain.AuthenticationRepository
 import com.letters.to.member.application.MemberWithdrawalEvent
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation

@@ -1,4 +1,4 @@
-package com.letters.to.auth.domain
+package com.letters.to.file.controller
 
 import com.letters.to.file.domain.FileRepository
 import com.letters.to.letter.application.LetterWriteEvent

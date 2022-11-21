@@ -16,6 +16,7 @@ import com.letters.to.personality.domain.Personality
 import com.letters.to.personality.domain.PersonalityRepository
 import com.letters.to.topic.domain.Topic
 import com.letters.to.topic.domain.TopicRepository
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -28,7 +29,8 @@ class MemberRegisterService(
     private val geolocationRepository: GeolocationRepository,
     private val topicRepository: TopicRepository,
     private val personalityRepository: PersonalityRepository,
-    private val accessTokenCreateService: AccessTokenCreateService
+    private val accessTokenCreateService: AccessTokenCreateService,
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) {
     @Transactional
     fun register(request: MemberRegisterRequest): TokenResponse {
@@ -59,6 +61,8 @@ class MemberRegisterService(
         )
 
         val refreshToken = accessTokenCreateService.create(authentication)
+
+        applicationEventPublisher.publishEvent(MemberRegisterEvent(id = member.id))
 
         return TokenResponse(
             accessToken = refreshToken.accessToken,

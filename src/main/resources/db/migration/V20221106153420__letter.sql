@@ -34,6 +34,7 @@ create table letter
     paper_color         varchar(255)  not null,
     stamp_id            bigint        not null,
     delivery_type       varchar(255),
+    align_type          varchar(255),
     from_member_id      bigint        not null,
     to_member_id        bigint,
     from_geolocation_id bigint,

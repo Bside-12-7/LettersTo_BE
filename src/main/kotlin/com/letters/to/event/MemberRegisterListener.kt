@@ -3,6 +3,9 @@ package com.letters.to.event
 import com.letters.to.member.application.MemberRegisterEvent
 import com.letters.to.member.domain.MemberRepository
 import com.letters.to.member.domain.findByIdAndActive
+import com.letters.to.stamphistory.domain.StampHistory
+import com.letters.to.stamphistory.domain.StampHistoryRepository
+import com.letters.to.stamphistory.domain.StampHistoryType
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
@@ -12,6 +15,7 @@ import org.springframework.transaction.event.TransactionalEventListener
 @Component
 class MemberRegisterListener(
     private val memberRepository: MemberRepository,
+    private val stampHistoryRepository: StampHistoryRepository,
     private val notifyClient: NotifyClient
 ) {
 
@@ -21,6 +25,14 @@ class MemberRegisterListener(
         val member = memberRepository.findByIdAndActive(event.id) ?: return
 
         member.giveStamp(100)
+
+        stampHistoryRepository.save(
+            StampHistory(
+                member = member,
+                type = StampHistoryType.REGISTRATION,
+                quantity = 100
+            )
+        )
 
         notifyClient.notify(
             title = "최초 가입 기념 우표 100개 지급!",

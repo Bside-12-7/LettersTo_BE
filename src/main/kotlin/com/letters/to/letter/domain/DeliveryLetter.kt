@@ -2,6 +2,7 @@ package com.letters.to.letter.domain
 
 import com.letters.to.geolocation.domain.Geolocation
 import com.letters.to.member.domain.Member
+import com.letters.to.member.domain.MemberStatus
 import com.letters.to.stamp.domain.Stamp
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -75,6 +76,7 @@ class DeliveryLetter(
 
     fun sendTo(member: Member) {
         check(fromMember != member) { "자신에게 답장할 수 없습니다." }
+        check(fromMember.status == MemberStatus.ACTIVE) { "탈퇴한 회원에게 답장할 수 없습니다." }
 
         fromMember.useStamp(deliveryType.stampCount)
 

@@ -26,7 +26,8 @@ class LetterBoxQueryService(
 
         return letterBoxes.map {
             LetterBoxResponse(
-                fromMemberId = it.id,
+                id = it.id,
+                fromMemberId = it.fromMember.id,
                 fromMemberNickname = it.fromMember.nickname.value,
                 new = newMap.contains(it.id)
             )

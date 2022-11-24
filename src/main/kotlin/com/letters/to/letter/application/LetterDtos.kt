@@ -89,6 +89,7 @@ data class DeliveryLetterResponse(
 )
 
 data class LetterBoxResponse(
+    val id: Long,
     val fromMemberId: Long,
     val fromMemberNickname: String,
     val new: Boolean

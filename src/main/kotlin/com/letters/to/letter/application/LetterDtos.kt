@@ -102,3 +102,8 @@ data class LetterBoxDetailResponse(
     val topics: List<String>,
     val personalities: List<String>
 )
+
+data class DeliveryDateResponse(
+    val deliveryType: DeliveryType,
+    val deliveryDate: LocalDateTime
+)

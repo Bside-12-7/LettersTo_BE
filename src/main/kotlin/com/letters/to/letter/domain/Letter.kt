@@ -63,6 +63,8 @@ abstract class Letter(
     open val id: Long = 0L
 ) {
     fun attachPictures(pictures: List<Picture>) {
+        require(pictures.size <= 5) { "사진은 최대 5개까지 첨부할 수 있습니다." }
+
         this.pictures.addAll(pictures)
         this.pictures.forEach {
             it.letter = this

@@ -42,6 +42,7 @@ class DeliveryLetterWriteService(
 
         deliveryLetter.attachPictures(request.files.map { Picture(fileId = it) })
         deliveryLetter.sendTo(targetDeliveryLetter.fromMember)
+        targetDeliveryLetter.reply()
 
         deliveryLetterRepository.save(deliveryLetter)
 

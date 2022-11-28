@@ -44,6 +44,7 @@ data class LetterDetailResponse(
     val alignType: AlignType,
     val stampId: Long,
     val replied: Boolean,
+    val canReply: Boolean,
     val files: List<String>,
     val createdDate: LocalDateTime
 )

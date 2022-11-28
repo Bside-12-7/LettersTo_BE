@@ -45,7 +45,7 @@ class PublicLetterController(
     }
 
     @GetMapping("/{id}")
-    fun findOneBy(@PathVariable id: Long): LetterDetailResponse {
-        return publicLetterQueryService.findOneBy(id)
+    fun findOneBy(@AccessToken accessTokenPayload: AccessTokenPayload, @PathVariable id: Long): LetterDetailResponse {
+        return publicLetterQueryService.findOneBy(accessTokenPayload.memberId, id)
     }
 }

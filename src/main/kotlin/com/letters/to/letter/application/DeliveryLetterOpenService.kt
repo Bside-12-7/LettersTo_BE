@@ -1,6 +1,5 @@
 package com.letters.to.letter.application
 
-import com.letters.to.auth.domain.AccessTokenPayload
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -9,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional
 class DeliveryLetterOpenService(
     private val deliveryLetterQueryRepository: DeliveryLetterQueryRepository
 ) {
-    fun open(accessTokenPayload: AccessTokenPayload, id: Long): LetterDetailResponse {
-        val deliveryLetter = deliveryLetterQueryRepository.findOneBy(accessTokenPayload.memberId, id)
+    fun open(memberId: Long, id: Long): LetterDetailResponse {
+        val deliveryLetter = deliveryLetterQueryRepository.findOneBy(memberId, id)
             ?: throw NoSuchElementException("유효한 편지가 아닙니다")
 
-        if (accessTokenPayload.memberId == deliveryLetter.toMember.id) {
+        if (memberId == deliveryLetter.toMember.id) {
             deliveryLetter.open()
         }
 
@@ -28,6 +27,7 @@ class DeliveryLetterOpenService(
             alignType = deliveryLetter.alignType,
             stampId = deliveryLetter.stamp.id,
             replied = deliveryLetter.replied,
+            canReply = !deliveryLetter.replied && deliveryLetter.fromMember.id != memberId,
             files = deliveryLetter.pictures.map { it.fileId },
             createdDate = deliveryLetter.createdDate
         )

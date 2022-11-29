@@ -15,7 +15,7 @@ class PublicLetterQueryService(private val publicLetterExtendsRepository: Public
         )
     }
 
-    fun findOneBy(id: Long): LetterDetailResponse {
-        return publicLetterExtendsRepository.findOneBy(id) ?: throw NoSuchElementException("유효한 공개편지가 아닙니다.")
+    fun findOneBy(memberId: Long, id: Long): LetterDetailResponse {
+        return publicLetterExtendsRepository.findOneBy(memberId, id) ?: throw NoSuchElementException("유효한 공개편지가 아닙니다.")
     }
 }

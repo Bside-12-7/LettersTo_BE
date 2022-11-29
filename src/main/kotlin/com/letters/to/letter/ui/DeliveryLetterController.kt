@@ -46,6 +46,6 @@ class DeliveryLetterController(
         @AccessToken accessTokenPayload: AccessTokenPayload,
         @PathVariable id: Long
     ): LetterDetailResponse {
-        return deliveryLetterOpenService.open(accessTokenPayload, id)
+        return deliveryLetterOpenService.open(accessTokenPayload.memberId, id)
     }
 }

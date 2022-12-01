@@ -11,6 +11,7 @@ class NotificationQueryRepository(private val jpaQueryFactory: JPAQueryFactory) 
     override fun findMoreBy(memberId: Long, cursor: Long?, read: Boolean?): List<Notification> {
         return jpaQueryFactory.selectFrom(notification)
             .where(
+                notification.memberId.eq(memberId),
                 cursor?.let { notification.id.lt(it) },
                 read?.let { notification.read.eq(it) }
             )

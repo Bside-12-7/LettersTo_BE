@@ -29,6 +29,7 @@ class StampHistoryQueryRepository(private val jpaQueryFactory: JPAQueryFactory) 
                     stampHistory.id
                 )
             )
+            .orderBy(stampHistory.id.desc())
             .fetch()
     }
 }

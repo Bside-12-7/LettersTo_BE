@@ -16,6 +16,13 @@ kakao:
     client-secret:
     redirect-uri:
 
+apple:
+  auth:
+    rest-api-key:
+    native-app-key:
+    client-secret:
+    redirect-uri:
+
 token:
   register-token-expires-in: 300
   access-token-expires-in: 1800

@@ -18,8 +18,7 @@ class DeliveryLetterQueryRepository(private val jpaQueryFactory: JPAQueryFactory
                 cursor?.let { deliveryLetter.id.lt(it) },
                 deliveryLetter.fromMember.id.eq(fromMemberId).and(deliveryLetter.toMember.id.eq(toMemberId)).or(
                     deliveryLetter.toMember.id.eq(fromMemberId).and(deliveryLetter.fromMember.id.eq(toMemberId))
-                ),
-                deliveryLetter.deliveryDate.loe(LocalDateTime.now())
+                )
             )
             .orderBy(deliveryLetter.id.desc())
             .select(

@@ -3,6 +3,7 @@ package com.letters.to.letter.domain
 import com.letters.to.member.domain.Member
 import com.letters.to.stamp.domain.Stamp
 import java.time.LocalDateTime
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -28,7 +29,7 @@ abstract class Letter(
     @Column(name = "content", length = 1000)
     open val content: Content,
 
-    @OneToMany(mappedBy = "letter")
+    @OneToMany(mappedBy = "letter", cascade = [CascadeType.PERSIST])
     open val pictures: MutableList<Picture> = mutableListOf(),
 
     @Column(name = "paper_type")

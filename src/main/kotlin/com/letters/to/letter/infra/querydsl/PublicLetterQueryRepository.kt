@@ -10,6 +10,7 @@ import com.letters.to.letter.domain.PaperType
 import com.letters.to.letter.domain.QLetterBox.letterBox
 import com.letters.to.letter.domain.QPicture.picture
 import com.letters.to.letter.domain.QPublicLetter.publicLetter
+import com.letters.to.member.domain.MemberStatus
 import com.letters.to.member.domain.QMember.member
 import com.letters.to.personality.domain.QPersonality.personality
 import com.letters.to.stamp.domain.QStamp.stamp
@@ -29,7 +30,10 @@ class PublicLetterQueryRepository(private val jpaQueryFactory: JPAQueryFactory) 
             .innerJoin(publicLetter.fromMember, member)
             .innerJoin(member.geolocation, geolocation)
             .innerJoin(publicLetter.stamp, stamp)
-            .where(cursor?.let { publicLetter.id.lt(it) })
+            .where(
+                cursor?.let { publicLetter.id.lt(it) },
+                member.status.eq(MemberStatus.ACTIVE)
+            )
             .orderBy(publicLetter.id.desc())
             .limit(10)
             .select(

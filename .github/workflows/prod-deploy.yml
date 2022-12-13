@@ -44,9 +44,9 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST_PROD }}
-          username: ${{ secrets.USERNAME_PROD }}
-          key: ${{ secrets.KEY_PROD }}
           port: ${{ secrets.PORT_PROD }}
+          username: ${{ secrets.USERNAME_PROD }}
+          password: ${{ secrets.PASSWORD_PROD }}
           source: "deploy/springapp/spring-app-image.tar,deploy/nginx/nginx-image.tar,deploy/docker-compose.yml"
           target: "app"
 
@@ -54,9 +54,9 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST_PROD }}
-          username: ${{ secrets.USERNAME_PROD }}
-          key: ${{ secrets.KEY_PROD }}
           port: ${{ secrets.PORT_PROD }}
+          username: ${{ secrets.USERNAME_PROD }}
+          password: ${{ secrets.PASSWORD_PROD }}
           script: |
             cd app/deploy
             export SPRING_PROFILES_ACTIVE=prod

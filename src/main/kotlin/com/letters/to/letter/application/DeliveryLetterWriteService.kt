@@ -49,6 +49,10 @@ class DeliveryLetterWriteService(
         applicationEventPublisher.publishEvent(
             LetterWriteEvent(
                 id = deliveryLetter.id,
+                delivered = true,
+                fromMember = deliveryLetter.fromMember.nickname.value,
+                toMemberId = deliveryLetter.toMember.id,
+                content = deliveryLetter.title.value,
                 files = request.files
             )
         )

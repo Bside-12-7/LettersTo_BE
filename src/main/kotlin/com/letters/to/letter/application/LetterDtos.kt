@@ -63,7 +63,7 @@ data class DeliveryLetterWriteRequest(
     val alignType: AlignType,
     val stampId: Long,
 
-    @field:Size(max = 3)
+    @field:Size(max = 5)
     val files: List<String>,
 
     val deliveryType: DeliveryType

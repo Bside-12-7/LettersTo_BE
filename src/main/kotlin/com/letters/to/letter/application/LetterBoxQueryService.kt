@@ -29,7 +29,7 @@ class LetterBoxQueryService(
                 id = it.id,
                 fromMemberId = it.fromMember.id,
                 fromMemberNickname = it.fromMember.nickname.value,
-                new = newMap.contains(it.id)
+                new = newMap.contains(it.fromMember.id)
             )
         }
     }

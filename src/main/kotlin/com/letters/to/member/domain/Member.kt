@@ -3,6 +3,7 @@ package com.letters.to.member.domain
 import com.letters.to.geolocation.domain.Geolocation
 import com.letters.to.personality.domain.Personality
 import com.letters.to.topic.domain.Topic
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -61,6 +62,10 @@ class Member(
     var geolocation: Geolocation = geolocation
         private set
 
+    @Column(name = "geolocation_editable_date")
+    var geolocationEditableDate: LocalDateTime = LocalDateTime.now()
+        private set
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     var status: MemberStatus = MemberStatus.ACTIVE
@@ -106,10 +111,12 @@ class Member(
         validateGeolocation(geolocation)
 
         this.geolocation = geolocation
+        this.geolocationEditableDate = LocalDate.now().plusDays(7).atStartOfDay()
     }
 
     private fun validateGeolocation(geolocation: Geolocation) {
         require(geolocation.isCity) { "주소는 시군구까지 선택해야 합니다." }
+        require(geolocationEditableDate <= LocalDateTime.now()) { "추가 변경은 일주일 후에 가능해요." }
     }
 
     fun withdrawal() {

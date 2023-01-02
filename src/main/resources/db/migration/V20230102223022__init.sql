@@ -38,12 +38,13 @@ create table geolocation
 
 create table member
 (
-    id             bigint primary key auto_increment,
-    nickname       varchar(255) not null unique,
-    email          varchar(255) not null,
-    geolocation_id bigint       not null,
-    status         varchar(255) not null,
-    created_date   datetime(6) not null
+    id                        bigint primary key auto_increment,
+    nickname                  varchar(255) not null unique,
+    email                     varchar(255) not null,
+    geolocation_id            bigint       not null,
+    status                    varchar(255) not null,
+    geolocation_editable_date datetime(6) not null,
+    created_date              datetime(6) not null
 );
 
 create table topic
@@ -397,3 +398,136 @@ values (2, 3, '종로구', 37.5735042429813, 126.978989954189, NOW()),
        (18, 3, '서귀포시', 33.2540646255037, 126.559563466911, NOW()),
        (18, 3, '북제주군', 33.4995342411967, 126.531171087132, NOW()),
        (18, 3, '남제주군', 33.2540646255037, 126.559563466911, NOW());
+
+create table file
+(
+    id           varchar(255) primary key,
+    bucket       varchar(255) not null,
+    `key`        varchar(255) not null,
+    verified     tinyint      not null,
+    expired_date datetime(6) not null,
+    created_date datetime(6) not null
+);
+
+create unique index uix_bucket_key on file (bucket, `key`);
+
+alter table geolocation
+    add column fullname varchar(255) not null, algorithm=inplace, lock=none;
+
+update geolocation child
+    inner join geolocation parent
+on child.parent_id = parent.id
+    set child.fullname = concat(parent.name, ' ', child.name)
+where child.level = 3;
+
+
+create table stamp
+(
+    id    bigint primary key auto_increment,
+    basic tinyint not null
+);
+
+insert into stamp(id, basic)
+values (1, true),
+       (2, true),
+       (3, true),
+       (4, true),
+       (5, true),
+       (6, true);
+
+create table letter
+(
+    id                  bigint primary key auto_increment,
+    dtype               varchar(255)  not null,
+    title               varchar(255)  not null,
+    content             varchar(1000) not null,
+    paper_type          varchar(255)  not null,
+    paper_color         varchar(255)  not null,
+    stamp_id            bigint        not null,
+    delivery_type       varchar(255),
+    align_type          varchar(255),
+    from_member_id      bigint        not null,
+    to_member_id        bigint,
+    from_geolocation_id bigint,
+    to_geolocation_id   bigint,
+    `read`              tinyint,
+    replied             tinyint,
+    delivery_date       datetime(6),
+    created_date        datetime(6) not null,
+    version             int           not null
+);
+
+create table picture
+(
+    id        bigint primary key auto_increment,
+    file_id   varchar(255) not null,
+    letter_id bigint
+);
+
+create table letter_topic
+(
+    id        bigint primary key auto_increment,
+    letter_id bigint not null,
+    topic_id  bigint not null
+);
+
+create table letter_personality
+(
+    id             bigint primary key auto_increment,
+    letter_id      bigint not null,
+    personality_id bigint not null
+);
+
+create table letter_box
+(
+    id             bigint primary key auto_increment,
+    from_member_id bigint not null,
+    to_member_id   bigint not null,
+    created_date   datetime(6) not null
+);
+
+create unique index uix_letter_box_from_to on letter_box (from_member_id, to_member_id);
+
+create table notification
+(
+    id           bigint primary key auto_increment,
+    title        varchar(50)  not null,
+    content      varchar(100) not null,
+    member_id    bigint       not null,
+    `read`       tinyint,
+    `type`       varchar(255),
+    intent       json         not null,
+    created_date datetime(6) not null
+);
+
+create index notification_member_id_read on notification (member_id, `read`);
+
+create table stamp_history
+(
+    id           bigint primary key auto_increment,
+    quantity     int    not null,
+    member_id    bigint not null,
+    `type`       varchar(255),
+    created_date datetime(6) not null
+);
+
+create index stamp_history_member_id_created_date on stamp_history (member_id, created_date);
+
+create table report
+(
+    id           bigint primary key auto_increment,
+    member_id    bigint       not null,
+    letter_id    bigint       not null,
+    description  varchar(100) not null,
+    completed    tinyint      not null,
+    created_date datetime(6) not null
+);
+
+create table attendance
+(
+    id        bigint primary key auto_increment,
+    member_id bigint not null,
+    `date`    date   not null
+);
+
+create unique index attendance_member_id_date on attendance (member_id, `date`);
